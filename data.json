@@ -1,15 +1,18 @@
 [
     {
-      "név": "Kovács Péter",
+      "név": "Kiss József",
       "email":"valamiemail@gmail.com",
       "kor": 30,
       "súly": 80,
       "magasság": 180,
       "nem": "férfi",
+      "kaloria_szukseglet":2600,
       "ráérés": ["Hétfő", "Szerda", "Péntek"],
       "étkezési_szokások": ["vegetáriánus"],
       "suly_cél": "izomépítés",
-      "edzés_cél": "maraton"
+      "edzés_cél": "maraton futás",
+      "kedvelt sportok":["futás", "kondi"],
+      "makrók":["szénhidrát: 45", "zsír: 10", "Fehérjék: 45"]
     },
     {
       "név": "Nagy Anna",
@@ -18,9 +21,12 @@
       "súly": 60,
       "magasság": 165,
       "nem": "nő",
+      "kaloria_szukseglet":1700,
       "ráérés": ["Kedd", "Csütörtök"],
       "étkezési_szokások": ["gluténmentes", "alacsony szénhidrát"],
       "suly_cél": "fogyás",
-      "edzés_cél": "nincs"
+      "edzés_cél": "nincs",
+      "kedvelt sportok":["jóga"],
+      "makrók":["szénhidrát: 40", "zsír: 15", "Fehérjék: 40"]
     }
   ]

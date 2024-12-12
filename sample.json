@@ -1,0 +1,69 @@
+{
+  "edzésterv": {
+    "Hétfő": "Futás: 10 km, erőnléti edzés a felsőtestre",
+    "Kedd": "Pihenő",
+    "Szerda": "Futás: 12 km, intervall edzés",
+    "Csütörtök": "Pihenő",
+    "Péntek": "Futás: 8 km, erőnléti edzés a lábakra",
+    "Szombat": "Hosszú futás: 15 km, fokozatos tempó növelés",
+    "Vasárnap": "Pihenő"
+  },
+  "étrendterv": {
+    "Hétfő": [
+      "Reggeli: Zabkása mandulával és banánnal",
+      "Tízórai: Diófélék és aszalt gyümölcsök",
+      "Ebéd: Quinoa saláta zöldségekkel és csicseriborsóval",
+      "Uzsonna: Hummusz zöldségekkel",
+      "Vacsora: Tofu stir-fry zöldségekkel és barna rizzsel",
+      "Snack: Joghurt gyümölcsökkel"
+    ],
+    "Kedd": [
+      "Reggeli: Smoothie spenóttal, banánnal és chia maggal",
+      "Tízórai: Zöldségchips",
+      "Ebéd: Lencseleves teljes kiőrlésű kenyérrel",
+      "Uzsonna: Kókuszchips",
+      "Vacsora: Zöldség curry vörös lencsével",
+      "Snack: Szeletelt alma mandulavajjal"
+    ],
+    "Szerda": [
+      "Reggeli: Teljes kiőrlésű pirítós avokádóval",
+      "Tízórai: Friss gyümölcs",
+      "Ebéd: Tönkölybúza saláta zöldségekkel és feta sajttal",
+      "Uzsonna: Keksz hummusszal",
+      "Vacsora: Zöldséges lasagne",
+      "Snack: Magkeverék"
+    ],
+    "Csütörtök": [
+      "Reggeli: Chia puding kókusztejjel és gyümölcsökkel",
+      "Tízórai: Sárgarépa és uborka rudak",
+      "Ebéd: Bulgur saláta zöldségekkel és dióval",
+      "Uzsonna: Diófélék",
+      "Vacsora: Zöldséges pizza teljes kiőrlésű tésztával",
+      "Snack: Vízibolhás joghurt"
+    ],
+    "Péntek": [
+      "Reggeli: Teljes kiőrlésű palacsinta gyümölcsökkel",
+      "Tízórai: Granola bár",
+      "Ebéd: Zöldséges tészta pestoval",
+      "Uzsonna: Gyümölcssaláta",
+      "Vacsora: Vegán burger édesburgonyával",
+      "Snack: Kakaós süti"
+    ],
+    "Szombat": [
+      "Reggeli: Smoothie bowl granolával és gyümölcsökkel",
+      "Tízórai: Mandulás energia golyók",
+      "Ebéd: Főtt barna rizs zöldségekkel és tofuval",
+      "Uzsonna: Fűszeres popcorn",
+      "Vacsora: Vegetáriánus enchilada",
+      "Snack: Friss gyümölcs"
+    ],
+    "Vasárnap": [
+      "Reggeli: Quinoa kása gyümölcsökkel",
+      "Tízórai: Zöldségkrém",
+      "Ebéd: Zöldség pörkölt bulgurral",
+      "Uzsonna: Keksz és zöld tea",
+      "Vacsora: Frittata zöldségekkel",
+      "Snack: Sötét csokoládé"
+    ]
+  }
+}

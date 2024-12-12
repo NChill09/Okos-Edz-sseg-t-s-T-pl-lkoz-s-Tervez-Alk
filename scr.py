@@ -1,5 +1,6 @@
 import os
 import openai
+import json
 
 try:
     with open("../OPENNAI_API_KEY", "r") as f:
@@ -17,7 +18,7 @@ def chat_with_gpt(prompt):
                 {"role": "user", "content": prompt}
             ],
             temperature=0.7,
-            max_tokens=1500
+            max_tokens=2500
         )
         
         # A válasz a 'choices' listából kinyerhető:
@@ -29,7 +30,48 @@ def chat_with_gpt(prompt):
 
 if __name__ == "__main__":
     # Bemeneti prompt
-    user_prompt = "Írj egy edzéstervet és étrendet egész jövőhétre kalóriállak. 30 éves vagyok, 80kg, 180 magas férfi. Hétfőn, Szerdán Pénteken érek rá. Vegetáriánus vagyok. Izomtömegnövelés a súlycélom. Maraton futás az edzéscélom. 2500 kaloriát eszem naponta!"
+    user_prompt = """
+Kérlek, készíts egy heti edzés- és étrendtervet a következő adatok alapján JSON formában:
+
+      név: Kiss József,
+      email":valamiemail@gmail.com,
+      kor: 30,
+      súly: 80,
+      magasság: 180,
+      nem": férfi,
+      kaloria_szukseglet:2600,
+      edzés napok": [Hétfő, Szerda, Péntek,
+      étkezési_szokások": vegetáriánus,
+      suly_cél: izomépítés,
+      edzés_cél: maraton futás
+
+A JSON formátum a következő legyen:
+
+{
+  "edzésterv": {
+    "Hétfő": "Edzés leírása",
+    "Kedd": "Pihenő",
+    ...
+    "Vasárnap": "Pihenő"
+  },
+  "étrendterv": {
+    "Hétfő": ["Reggeli:", "Tízórai:" "Ebéd:", "Uzsonna:", "Vacsora:", "Snack:"],
+    "Kedd": ["Reggeli:", "Tízórai:" "Ebéd:", "Uzsonna:", "Vacsora:", "Snack:"],
+    ...
+    "Vasárnap": ["Reggeli:", "Tízórai:" "Ebéd:", "Uzsonna:", "Vacsora:", "Snack:"],
+  }
+}
+
+Adott napokon az étrendben és edzéstervben ne legyenek üresek a mezők!
+
+Csak a json filet kérem válaszul
+"""
     valasz = chat_with_gpt(user_prompt)
+
     if valasz:
+        import json
+        with open("sample.json", "w", encoding="utf-8") as f:
+            json.dump(valasz, f, ensure_ascii=False, indent=4)
+        print("A ChatGPT válasz JSON formában elmentve a sample.json fájlba.")
+    else:
         print("ChatGPT válasz:\n", valasz)
