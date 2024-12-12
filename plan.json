@@ -1,0 +1,149 @@
+[
+    {
+      "név": "Kiss József",
+      "email":"valamiemail@gmail.com",
+      "terv": {
+        "edzésterv": {
+          "Hétfő": "Kardió (30 perc könnyű kocogás, 10 perc nyújtás)",
+          "Kedd": "Pihenő",
+          "Szerda": "Erősítés (felsőtest: fekvőtámasz, húzódzkodás, vállgyakorlatok)",
+          "Csütörtök": "Pihenő",
+          "Péntek": "Jóga (30 perc, légzőgyakorlatokkal)",
+          "Szombat": "Pihenő",
+          "Vasárnap": "Pihenő"
+        },
+        "étrendterv": {
+          "Hétfő": [
+            "Reggeli: Zabpehely mandulatejjel, chia maggal, 1 banán (500 kalória)",
+            "Tízórai: Humusz zöldségekkel (sárgarépa, uborka) (300 kalória)",
+            "Ebéd: Quinoa saláta zöldségekkel, avokádóval (600 kalória)",
+            "Uzsonna: Protein shake (250 kalória)",
+            "Vacsora: Zöldség wok rizstésztával",
+            "Snack: 30g mandula (250 kalória)"
+          ],
+          "Kedd": [
+            "Reggeli: Zabkása mandulatejjel, bogyós gyümölcsökkel",
+            "Tízórai: Humusz zöldségekkel (sárgarépa, uborka) (300 kalória)",
+            "Ebéd: Lencsefőzelék főtt tojással",
+            "Uzsonna: Protein shake (250 kalória)",
+            "Vacsora: Vegán zöldborsókrémleves teljes kiőrlésű kenyérrel",
+            "Snack: 30g mandula (250 kalória)"
+          ],
+          "Szerda": [
+            "Reggeli: Smoothie (spenót, uborka, alma, mandulatej)",
+            "Tízórai: Humusz zöldségekkel (sárgarépa, uborka) (300 kalória)",
+            "Ebéd: Grillezett gomba és padlizsán barna rizzsel",
+            "Uzsonna: Protein shake (250 kalória)",
+            "Vacsora: Bulgur saláta sült paprikával és fetasajttal",
+            "Snack: 30g mandula (250 kalória)"
+          ],
+          "Csütörtök": [
+            "Reggeli: Teljes kiőrlésű palacsinta gyümölcsökkel",
+            "Tízórai: Humusz zöldségekkel (sárgarépa, uborka) (300 kalória)",
+            "Ebéd: Paradicsomos cukkinispagetti",
+            "Uzsonna: Protein shake (250 kalória)",
+            "Vacsora: Sült tofu brokkolival és gombával",
+            "Snack: 30g mandula (250 kalória)"
+          ],
+          "Péntek": [
+            "Reggeli: Avokádós pirítós csírákkal",
+            "Tízórai: Humusz zöldségekkel (sárgarépa, uborka) (300 kalória)",
+            "Ebéd: Csicseriborsó curry zöldségekkel",
+            "Uzsonna: Protein shake (250 kalória)",
+            "Vacsora: Grillzöldségek bulgurral",
+            "Snack: 30g mandula (250 kalória)"
+          ],
+          "Szombat": [
+            "Reggeli: Natúr joghurt gyümölcsökkel és dióval",
+            "Tízórai: Humusz zöldségekkel (sárgarépa, uborka) (300 kalória)",
+            "Ebéd: Vegán borsófőzelék sült tofukockákkal",
+            "Uzsonna: Protein shake (250 kalória)",
+            "Vacsora: Spenótos-rukkolás saláta olívabogyóval",
+            "Snack: 30g mandula (250 kalória)"
+          ],
+          "Vasárnap": [
+            "Reggeli: Gyümölcstál (alma, körte, bogyósok), magvakkal",
+            "Tízórai: Humusz zöldségekkel (sárgarépa, uborka) (300 kalória)",
+            "Ebéd: Zöldségleves teljes kiőrlésű tésztával",
+            "Uzsonna: Protein shake (250 kalória)",
+            "Vacsora: Pirított gomba és cukkini quinoával",
+            "Snack: 30g mandula (250 kalória)"
+          ]
+        }
+      }
+    },
+    {
+      "név": "Nagy Anna",
+      "email":"masikemail@gmail.com",
+      "terv": {
+        "edzésterv": {
+          "Hétfő": "Pihenő",
+          "Kedd": "Erősítés (alsótest: guggolás, kitörés, lábprés)",
+          "Szerda": "Pihenő",
+          "Csütörtök": "Kardió (30 perc kerékpár vagy gyors séta)",
+          "Péntek": "Pihenő",
+          "Szombat": "Pihenő",
+          "Vasárnap": "Pihenő"
+        },
+        "étrendterv": {
+        "Hétfő": [
+          "Reggeli: Zabkása mandulatejjel, áfonya (gluténmentes zab)",
+          "Tízórai: Natúr joghurt bogyós gyümölcsökkel",
+          "Ebéd: Grillezett csirke salátával, quinoával",
+          "Uzsonna: Kesudió (30g)",
+          "Vacsora: Halfilé párolt brokkolival (alacsony szénhidrát)",
+          "Snack: Szeletelt alma"
+        ],
+        "Kedd": [
+          "Reggeli: Tojásrántotta zöldségekkel (gluténmentes)",
+          "Tízórai: Avokádós pirítós rizskenyérrel",
+          "Ebéd: Édesburgonya püré sült tofuval",
+          "Uzsonna: Olívabogyó és mandula",
+          "Vacsora: Csirkemell saláta tökmaggal",
+          "Snack: Szeletelt zöldség"
+        ],
+        "Szerda": [
+          "Reggeli: Smoothie (spenót, uborka, mandulatej, lenmag)",
+          "Tízórai: Natúr joghurt eperrel",
+          "Ebéd: Csirkemell cukkini spagettivel (gluténmentes)",
+          "Uzsonna: Dió (30g)",
+          "Vacsora: Tonhal saláta olívaolajjal",
+          "Snack: Szeletelt paprika"
+        ],
+        "Csütörtök": [
+          "Reggeli: Avokádókrém zöldségekkel, rizsszelettel (gluténmentes)",
+          "Tízórai: Mozzarella paradicsommal",
+          "Ebéd: Lencsesaláta grillezett halloumi sajttal",
+          "Uzsonna: Sült csicseriborsó",
+          "Vacsora: Lazac filé párolt spenóttal",
+          "Snack: Olívabogyó"
+        ],
+        "Péntek": [
+          "Reggeli: Smoothie (mandulatej, spenót, bogyós gyümölcsök)",
+          "Tízórai: Natúr mogyoró (30g)",
+          "Ebéd: Tofu stir-fry zöldségekkel, quinoa",
+          "Uzsonna: Gyümölcsök (alma, körte)",
+          "Vacsora: Csirkemell saláta mandulával",
+          "Snack: Uborkaszeletek"
+        ],
+        "Szombat": [
+          "Reggeli: Frittata zöldségekkel",
+          "Tízórai: Natúr joghurt lenmaggal",
+          "Ebéd: Marhaszelet édesburgonya körettel (gluténmentes)",
+          "Uzsonna: Szeletelt zöldség humusszal",
+          "Vacsora: Grillezett garnéla salátán",
+          "Snack: Olívabogyó és dió"
+        ],
+        "Vasárnap": [
+          "Reggeli: Kecskesajt saláta dióval",
+          "Tízórai: Natúr joghurt sárgabarackkal",
+          "Ebéd: Sült pisztráng párolt brokkolival",
+          "Uzsonna: Bogyós gyümölcsök",
+          "Vacsora: Csirkemell cukkini hasábokkal",
+          "Snack: Mogyoróvaj zellerszárral"
+        ]
+        }
+      }
+    }
+  ]
+  

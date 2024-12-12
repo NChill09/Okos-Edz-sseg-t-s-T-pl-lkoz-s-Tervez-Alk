@@ -1,0 +1,26 @@
+[
+    {
+      "név": "Kovács Péter",
+      "email":"valamiemail@gmail.com",
+      "kor": 30,
+      "súly": 80,
+      "magasság": 180,
+      "nem": "férfi",
+      "ráérés": ["Hétfő", "Szerda", "Péntek"],
+      "étkezési_szokások": ["vegetáriánus"],
+      "suly_cél": "izomépítés",
+      "edzés_cél": "maraton"
+    },
+    {
+      "név": "Nagy Anna",
+      "email":"masikemail@gmail.com",
+      "kor": 25,
+      "súly": 60,
+      "magasság": 165,
+      "nem": "nő",
+      "ráérés": ["Kedd", "Csütörtök"],
+      "étkezési_szokások": ["gluténmentes", "alacsony szénhidrát"],
+      "suly_cél": "fogyás",
+      "edzés_cél": "nincs"
+    }
+  ]
