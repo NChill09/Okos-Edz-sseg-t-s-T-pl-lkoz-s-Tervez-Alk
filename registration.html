@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regisztráció</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            align-items: center;
+			margin: 0px;
+            height: 100vh;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #555;
+        }
+
+        input, select, button {
+            width: calc(100% - 10px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .availability-select {
+            position: relative;
+            user-select: none;
+			width: 390px;
+        }
+
+        .availability-display {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #fff;
+            cursor: pointer;
+        }
+
+        .availability-options {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            border: 1px solid #ddd;
+            background: #fff;
+            z-index: 10;
+            display: none;
+            flex-direction: column;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .availability-options.show {
+            display: flex;
+        }
+
+        .availability-options div {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .availability-options div:hover {
+            background: #f0f0f0;
+        }
+
+        .selected {
+            background: #4caf50;
+            color: white;
+        }
+
+        input:focus, select:focus, button:focus {
+            outline: none;
+            border-color: #4caf50;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 0.875rem;
+            margin: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Regisztráció</h1>
+    <form id="registration-form">
+        <label for="name">Név:</label>
+        <input type="text" id="name" ><br>
+        <div id="name-error" class="error-message"></div>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" ><br>
+        <div id="email-error" class="error-message"></div>
+
+        <label for="age">Kor:</label>
+        <input type="number" id="age" ><br>
+        <div id="age-error" class="error-message"></div>
+
+        <label for="weight">Súly (kg):</label>
+        <input type="number" id="weight" ><br>
+        <div id="weight-error" class="error-message"></div>
+
+        <label for="height">Magasság (cm):</label>
+        <input type="number" id="height" ><br>
+        <div id="height-error" class="error-message"></div>
+
+        <label for="gender">Nem:</label>
+        <select id="gender" >
+            <option value="">Válasszon...</option>
+            <option value="man">Férfi</option>
+            <option value="woman">Nő</option>
+        </select><br>
+        <div id="gender-error" class="error-message"></div>
+
+        <label>Ráérés:</label>
+        <div class="availability-select">
+            <div class="availability-display" id="availability-display">Válasszon...</div>
+            <div class="availability-options" id="availability-options">
+                <div data-value="Hétfő">Hétfő</div>
+                <div data-value="Kedd">Kedd</div>
+                <div data-value="Szerda">Szerda</div>
+                <div data-value="Csütörtök">Csütörtök</div>
+                <div data-value="Péntek">Péntek</div>
+                <div data-value="Szombat">Szombat</div>
+                <div data-value="Vasárnap">Vasárnap</div>
+            </div>
+            <input type="hidden" id="availability" name="availability" > <!-- Hidden required input -->
+        </div>
+        <div id="availability-error" class="error-message"></div>
+
+        <label for="diet">Étkezési szokások:</label>
+        <input type="text" id="diet" placeholder="Pl. vegetáriánus">
+		<div id="diet-error" class="error-message"></div>
+
+        <label for="weight-goal">Súly cél (kg):</label>
+        <input type="number" id="weight-goal" ><br>
+        <div id="weight-goal-error" class="error-message"></div>
+
+        <label for="training-goal">Edzés cél:</label>
+        <input type="text" id="training-goal" ><br>
+        <div id="training-goal-error" class="error-message"></div>
+
+        <button type="submit">Regisztráció</button>
+    </form>
+
+    <script>
+        const display = document.querySelector('.availability-display');
+        const options = document.querySelector('.availability-options');
+        const optionsItems = document.querySelectorAll('.availability-options div');
+        const hiddenInput = document.getElementById('availability');
+        const form = document.getElementById('registration-form');
+
+        display.addEventListener('click', () => {
+            options.classList.toggle('show');
+        });
+
+        optionsItems.forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.toggle('selected');
+                const selectedValues = Array.from(optionsItems)
+                    .filter(opt => opt.classList.contains('selected'))
+                    .map(opt => opt.getAttribute('data-value'));
+
+                display.textContent = selectedValues.length ? selectedValues.join(', ') : 'Válasszon...';
+                hiddenInput.value = selectedValues.join(', ');
+            });
+        });
+
+        form.addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            let isValid = true;
+            const errorMessages = document.querySelectorAll('.error-message');
+            errorMessages.forEach(error => error.textContent = '');
+
+            const requiredFields = [
+                { id: 'name', message: 'A név mező nem lehet üres.' },
+                { id: 'email', message: 'Az email mező nem lehet üres.' },
+                { id: 'age', message: 'A kor mező nem lehet üres.' },
+                { id: 'weight', message: 'A súly mező nem lehet üres.' },
+                { id: 'height', message: 'A magasság mező nem lehet üres.' },
+                { id: 'gender', message: 'A nem mező nem lehet üres.' },
+                { id: 'availability', message: 'Válasszon legalább egy napot a ráéréshez.' },
+                { id: 'diet', message: 'Az étkezési szokások mező nem lehet üres.' },
+                { id: 'weight-goal', message: 'A súly cél mező nem lehet üres.' },
+                { id: 'training-goal', message: 'Az edzés cél mező nem lehet üres.' },
+            ];
+
+            requiredFields.forEach(field => {
+                const element = document.getElementById(field.id);
+                if (!element.value && (field.id !== 'availability' || !hiddenInput.value)) {
+                    const errorElement = document.getElementById(`${field.id}-error`);
+                    errorElement.textContent = field.message;
+                    isValid = false;
+                }
+            });
+
+            if (isValid) {
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const age = parseInt(document.getElementById('age').value);
+                const weight = parseInt(document.getElementById('weight').value);
+                const height = parseInt(document.getElementById('height').value);
+                const gender = document.getElementById('gender').value;
+
+                const availability = hiddenInput.value.split(',');
+
+                const diet = document.getElementById('diet').value.split(',').map(item => item.trim());
+                const weightGoal = document.getElementById('weight-goal').value;
+                const trainingGoal = document.getElementById('training-goal').value;
+
+                const data = {
+                    "név": name,
+                    "email": email,
+                    "kor": age,
+                    "súly": weight,
+                    "magasság": height,
+                    "nem": gender,
+                    "ráérés": availability,
+                    "étkezési_szokások": diet,
+                    "suly_cél": weightGoal,
+                    "edzés_cél": trainingGoal
+                };
+				
+                try {
+                    const response = await fetch('https://your-api-endpoint.com/register', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    });
+
+                    if (response.ok) {
+                        alert('Sikeres regisztráció!');
+                    } else {
+                        alert('Hiba történt a regisztráció során.');
+                    }
+                } catch (error) {
+					console.log(data);
+                    console.error('Hálózati hiba:', error);
+                    alert('Hálózati hiba történt.');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
