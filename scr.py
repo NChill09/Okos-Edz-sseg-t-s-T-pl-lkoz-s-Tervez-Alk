@@ -37,7 +37,7 @@ def chat_with_gpt(prompt):
 
 def generate_plan(row):
     #output_file = "sample.json"
-    prompt = "Kérlek, készíts egy heti edzés- és étrendtervet a következő adatok alapján: {0}  Minden napra legyen edzésterv és étrend is. Csak az edzéstervet és étrendet kérem a válaszba más szöveget nem!".format(row)
+    prompt = "Kérlek, készíts egy heti edzés- és étrendtervet a következő adatok alapján: {0}  7 napra legyen edzésterv és étrend is. Csak az edzéstervet és étrendet kérem a válaszba más szöveget nem!".format(row)
 
     valasz = chat_with_gpt(prompt)
 
@@ -67,11 +67,17 @@ def get_form_answers():
     rows = result.get('values', [])
 
     # Válaszok megjelenítése
-    if rows:
-        for row in rows[1:]:
-            generate_plan(row)
-    else:
-        print("Nincsenek válaszok.")
+    #if rows:
+    #    for row in rows[1:]:
+    #        generate_plan(row)
+    #else:
+    #    print("Nincsenek válaszok.")
+
+    # Demo verzióhoz, csak az utolsó kitölt nézzük:
+    generate_plan(rows[-1])
+
+
+    
 
 def send_email(name,receiver_email, plan):
     try:
@@ -79,9 +85,9 @@ def send_email(name,receiver_email, plan):
     except Exception as e:
         print(f"Hiba történt a Yagmail inicializálásakor: {e}")
 
-    #receiver_email = "nemethcsicsi@gmail.com" 
+    receiver_email = "nemethcsicsi@gmail.com" 
     subject = "Heti edzés és étrend terv"
-    message_body = f"Kedves {name}, a heti terved a következő:\n{plan}"
+    message_body = f"Kedves {name}, a heti terved a következő:\n{plan}\n A sportolásra remek motivációkat kaphatsz itt: https://www.instagram.com/nchill_shots/?utm_source=hirlevel&utm_medium=email&utm_campaign=suliapp&utm_id=okos+egeszsegseg%C3%ADto&utm_term=suliapp&utm_content=suliapp"
 
 
     try:
