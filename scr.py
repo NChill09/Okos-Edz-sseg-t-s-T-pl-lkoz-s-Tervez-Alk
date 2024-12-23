@@ -1,6 +1,7 @@
 import os
 import openai
 import json
+from pathlib import Path
 
 try:
     with open("../OPENNAI_API_KEY", "r") as f:
@@ -30,44 +31,52 @@ def chat_with_gpt(prompt):
 
 if __name__ == "__main__":
     # Bemeneti prompt
-    user_prompt = """
+    downloads_dir = Path.home() / "Downloads"
+    file_path = downloads_dir / "data.json"
+    
+    with open(file_path, "r", encoding="utf-8") as json_file:
+        data = json.load(json_file)
+    
+    user_prompt = f"""
 Kérlek, készíts egy heti edzés- és étrendtervet a következő adatok alapján JSON formában:
 
-      név: Kiss József,
-      email":valamiemail@gmail.com,
-      kor: 30,
-      súly: 80,
-      magasság: 180,
-      nem": férfi,
-      kaloria_szukseglet:2600,
-      edzés napok": [Hétfő, Szerda, Péntek,
-      étkezési_szokások": vegetáriánus,
-      suly_cél: izomépítés,
-      edzés_cél: maraton futás
+      név: {data['név']},
+      email: {data['email']},
+      kor: {data['kor']},
+      súly: {data['súly']},
+      magasság: {data['magasság']},
+      nem: {data['nem']},
+      kaloria_szukseglet: {data['kaloria_szukseglet']},
+      edzés napok: {data['ráérés']},
+      étkezési_szokások: {data['étkezési_szokások']},
+      suly_cél: {data['suly_cél']},
+      edzés_cél: {data['edzés_cél']}
 
 A JSON formátum a következő legyen:
 
-{
-  "edzésterv": {
+{{
+  "edzésterv": {{
     "Hétfő": "Edzés leírása",
     "Kedd": "Pihenő",
     ...
     "Vasárnap": "Pihenő"
-  },
-  "étrendterv": {
+  }},
+  "étrendterv": {{
     "Hétfő": ["Reggeli:", "Tízórai:" "Ebéd:", "Uzsonna:", "Vacsora:", "Snack:"],
     "Kedd": ["Reggeli:", "Tízórai:" "Ebéd:", "Uzsonna:", "Vacsora:", "Snack:"],
     ...
     "Vasárnap": ["Reggeli:", "Tízórai:" "Ebéd:", "Uzsonna:", "Vacsora:", "Snack:"],
-  }
-}
+  }}
+}}
 
 Adott napokon az étrendben és edzéstervben ne legyenek üresek a mezők!
 
 Csak a json filet kérem válaszul
 """
     valasz = chat_with_gpt(user_prompt)
-
+    
+    print(user_prompt);
+    
     if valasz:
         import json
         with open("sample.json", "w", encoding="utf-8") as f:

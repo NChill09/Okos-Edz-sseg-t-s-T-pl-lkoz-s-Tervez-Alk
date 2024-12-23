@@ -252,33 +252,35 @@
                     "súly": weight,
                     "magasság": height,
                     "nem": gender,
+					"kaloria_szukseglet": calculateBMR(gender, weight, age, height),
                     "ráérés": availability,
                     "étkezési_szokások": diet,
                     "suly_cél": weightGoal,
                     "edzés_cél": trainingGoal
                 };
 				
-                try {
-                    const response = await fetch('https://your-api-endpoint.com/register', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(data)
-                    });
-
-                    if (response.ok) {
-                        alert('Sikeres regisztráció!');
-                    } else {
-                        alert('Hiba történt a regisztráció során.');
-                    }
-                } catch (error) {
-					console.log(data);
-                    console.error('Hálózati hiba:', error);
-                    alert('Hálózati hiba történt.');
-                }
+                const jsonData = JSON.stringify(data, null, 2);
+				const blob = new Blob([jsonData], { type: "application/json" })		
+				const url = URL.createObjectURL(blob);
+				const a = document.createElement("a");
+				a.href = url;
+				a.download = "data.json";
+				document.body.appendChild(a);
+				a.click();
+				document.body.removeChild(a);
+				URL.revokeObjectURL(url);
             }
         });
+		
+		function calculateBMR(gender, weight, age, height) {
+		  if (gender === "man") {
+			// Férfiakra vonatkozó BMR képlet
+			return 88 + (13.4 * weight) + (4.8 * height) - (5.7 * age);
+		  } else {
+			//Nők esetén a képlet különbözik
+			return 447 + (9.2 * weight) + (3.1 * height) - (4.3 * age);
+		  }
+		}
     </script>
 </body>
 </html>
