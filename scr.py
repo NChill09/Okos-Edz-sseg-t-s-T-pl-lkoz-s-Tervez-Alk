@@ -1,5 +1,6 @@
 import os
 import openai
+import yagmail
 import json
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
@@ -11,6 +12,10 @@ except FileNotFoundError:
     print("Hiba: Az OPENNAI_API_KEY fájl nem található!")
     exit(1)
 
+sender_email = "mealplanner06@gmail.com"
+email_password = "ybie npwy slic pxpr"  # Normál Gmail jelszó vagy alkalmazás-specifikus jelszó
+
+
 def chat_with_gpt(prompt):
     try:
         response = openai.ChatCompletion.create(
@@ -20,7 +25,7 @@ def chat_with_gpt(prompt):
                 {"role": "user", "content": prompt}
             ],
             temperature=0.7,
-            max_tokens=1000
+            max_tokens=5000
         )
         
         # A válasz a 'choices' listából kinyerhető:
@@ -32,13 +37,12 @@ def chat_with_gpt(prompt):
 
 def generate_plan(row):
     #output_file = "sample.json"
-    prompt = "Kérlek, készíts egy heti edzés- és étrendtervet a következő adatok alapján: {0} csak az edzéstervet és étrendet kérem a válaszba más szöveget nem".format(row)
-    print(prompt)
+    prompt = "Kérlek, készíts egy heti edzés- és étrendtervet a következő adatok alapján: {0}  Minden napra legyen edzésterv és étrend is. Csak az edzéstervet és étrendet kérem a válaszba más szöveget nem!".format(row)
 
     valasz = chat_with_gpt(prompt)
 
     if valasz:
-        print(valasz)
+        send_email(row[1], row[2], valasz)
     else:
         print("ChatGPT válasz:\n", valasz)
 
@@ -69,6 +73,22 @@ def get_form_answers():
     else:
         print("Nincsenek válaszok.")
 
+def send_email(name,receiver_email, plan):
+    try:
+        yag = yagmail.SMTP(user=sender_email, password=email_password)
+    except Exception as e:
+        print(f"Hiba történt a Yagmail inicializálásakor: {e}")
+
+    #receiver_email = "nemethcsicsi@gmail.com" 
+    subject = "Heti edzés és étrend terv"
+    message_body = f"Kedves {name}, a heti terved a következő:\n{plan}"
+
+
+    try:
+        yag.send(to=receiver_email, subject=subject, contents=message_body)
+        print(f"Email elküldve: {receiver_email}")
+    except Exception as e:
+        print(f"Hiba történt az email küldésekor {receiver_email} részére: {e}")
+
 if __name__ == "__main__":
     get_form_answers()
-    
