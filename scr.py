@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 try:
-    with open("../OPENNAI_API_KEY", "r") as f:
+    with open("../OPENNAI_API_KEY.txt", "r") as f:
         openai.api_key = f.read().strip()
 except FileNotFoundError:
     print("Hiba: Az OPENNAI_API_KEY fájl nem található!")
@@ -53,21 +53,25 @@ Kérlek, készíts egy heti edzés- és étrendtervet a következő adatok alapj
       edzés_cél: {data['edzés_cél']}
 
 A JSON formátum a következő legyen:
-
-{{
-  "edzésterv": {{
-    "Hétfő": "Edzés leírása",
-    "Kedd": "Pihenő",
-    ...
-    "Vasárnap": "Pihenő"
-  }},
-  "étrendterv": {{
-    "Hétfő": ["Reggeli:", "Tízórai:" "Ebéd:", "Uzsonna:", "Vacsora:", "Snack:"],
-    "Kedd": ["Reggeli:", "Tízórai:" "Ebéd:", "Uzsonna:", "Vacsora:", "Snack:"],
-    ...
-    "Vasárnap": ["Reggeli:", "Tízórai:" "Ebéd:", "Uzsonna:", "Vacsora:", "Snack:"],
+[{{
+  "név": {data['név']},
+  "email": {data['email']},
+  "terv":
+  {{
+    "edzésterv": {{
+      "Hétfő": "Edzés leírása",
+      "Kedd": "Pihenő",
+      ...
+      "Vasárnap": "Pihenő"
+    }},
+    "étrendterv": {{
+      "Hétfő": ["Reggeli:", "Tízórai:" "Ebéd:", "Uzsonna:", "Vacsora:", "Snack:"],
+      "Kedd": ["Reggeli:", "Tízórai:" "Ebéd:", "Uzsonna:", "Vacsora:", "Snack:"],
+      ...
+      "Vasárnap": ["Reggeli:", "Tízórai:" "Ebéd:", "Uzsonna:", "Vacsora:", "Snack:"],
+    }}
   }}
-}}
+}}]
 
 Adott napokon az étrendben és edzéstervben ne legyenek üresek a mezők!
 
@@ -75,12 +79,26 @@ Csak a json filet kérem válaszul
 """
     valasz = chat_with_gpt(user_prompt)
     
-    print(user_prompt);
-    
     if valasz:
-        import json
-        with open("sample.json", "w", encoding="utf-8") as f:
-            json.dump(valasz, f, ensure_ascii=False, indent=4)
-        print("A ChatGPT válasz JSON formában elmentve a sample.json fájlba.")
+        # A válasz JSON részének kinyerése
+        try:
+            json_start = valasz.find("{")
+            json_end = valasz.rfind("}")
+            if json_start != -1 and json_end != -1:
+                json_content = valasz[json_start:json_end + 1]
+                parsed_json = json.loads(json_content)
+                
+                # Listába csomagolás
+                json_wrapped = [parsed_json]
+                
+                # Fájlba mentés
+                output_path = "plan.json"
+                with open(output_path, "w", encoding="utf-8") as f:
+                    json.dump(json_wrapped, f, ensure_ascii=False, indent=4)
+                print(f"A JSON válasz elmentve a(z) {output_path} fájlba.")
+            else:
+                print("Nem található JSON formátum a válaszban!")
+        except json.JSONDecodeError as e:
+            print("Hiba a JSON dekódolásakor:", str(e))
     else:
-        print("ChatGPT válasz:\n", valasz)
+        print("Nem érkezett válasz a ChatGPT-től!")
