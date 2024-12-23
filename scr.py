@@ -1,10 +1,11 @@
 import os
 import openai
 import json
-from pathlib import Path
+from google.oauth2 import service_account
+from googleapiclient.discovery import build
 
 try:
-    with open("../OPENNAI_API_KEY.txt", "r") as f:
+    with open("../OPENNAI_API_KEY", "r") as f:
         openai.api_key = f.read().strip()
 except FileNotFoundError:
     print("Hiba: Az OPENNAI_API_KEY fájl nem található!")
@@ -19,7 +20,7 @@ def chat_with_gpt(prompt):
                 {"role": "user", "content": prompt}
             ],
             temperature=0.7,
-            max_tokens=2500
+            max_tokens=1000
         )
         
         # A válasz a 'choices' listából kinyerhető:
@@ -29,76 +30,45 @@ def chat_with_gpt(prompt):
         print("Hiba történt az API hívás során:", str(e))
         return None
 
-if __name__ == "__main__":
-    # Bemeneti prompt
-    downloads_dir = Path.home() / "Downloads"
-    file_path = downloads_dir / "data.json"
-    
-    with open(file_path, "r", encoding="utf-8") as json_file:
-        data = json.load(json_file)
-    
-    user_prompt = f"""
-Kérlek, készíts egy heti edzés- és étrendtervet a következő adatok alapján JSON formában:
+def generate_plan(row):
+    #output_file = "sample.json"
+    prompt = "Kérlek, készíts egy heti edzés- és étrendtervet a következő adatok alapján: {0} csak az edzéstervet és étrendet kérem a válaszba más szöveget nem".format(row)
+    print(prompt)
 
-      név: {data['név']},
-      email: {data['email']},
-      kor: {data['kor']},
-      súly: {data['súly']},
-      magasság: {data['magasság']},
-      nem: {data['nem']},
-      kaloria_szukseglet: {data['kaloria_szukseglet']},
-      edzés napok: {data['ráérés']},
-      étkezési_szokások: {data['étkezési_szokások']},
-      suly_cél: {data['suly_cél']},
-      edzés_cél: {data['edzés_cél']}
+    valasz = chat_with_gpt(prompt)
 
-A JSON formátum a következő legyen:
-[{{
-  "név": {data['név']},
-  "email": {data['email']},
-  "terv":
-  {{
-    "edzésterv": {{
-      "Hétfő": "Edzés leírása",
-      "Kedd": "Pihenő",
-      ...
-      "Vasárnap": "Pihenő"
-    }},
-    "étrendterv": {{
-      "Hétfő": ["Reggeli:", "Tízórai:" "Ebéd:", "Uzsonna:", "Vacsora:", "Snack:"],
-      "Kedd": ["Reggeli:", "Tízórai:" "Ebéd:", "Uzsonna:", "Vacsora:", "Snack:"],
-      ...
-      "Vasárnap": ["Reggeli:", "Tízórai:" "Ebéd:", "Uzsonna:", "Vacsora:", "Snack:"],
-    }}
-  }}
-}}]
-
-Adott napokon az étrendben és edzéstervben ne legyenek üresek a mezők!
-
-Csak a json filet kérem válaszul
-"""
-    valasz = chat_with_gpt(user_prompt)
-    
     if valasz:
-        # A válasz JSON részének kinyerése
-        try:
-            json_start = valasz.find("{")
-            json_end = valasz.rfind("}")
-            if json_start != -1 and json_end != -1:
-                json_content = valasz[json_start:json_end + 1]
-                parsed_json = json.loads(json_content)
-                
-                # Listába csomagolás
-                json_wrapped = [parsed_json]
-                
-                # Fájlba mentés
-                output_path = "plan.json"
-                with open(output_path, "w", encoding="utf-8") as f:
-                    json.dump(json_wrapped, f, ensure_ascii=False, indent=4)
-                print(f"A JSON válasz elmentve a(z) {output_path} fájlba.")
-            else:
-                print("Nem található JSON formátum a válaszban!")
-        except json.JSONDecodeError as e:
-            print("Hiba a JSON dekódolásakor:", str(e))
+        print(valasz)
     else:
-        print("Nem érkezett válasz a ChatGPT-től!")
+        print("ChatGPT válasz:\n", valasz)
+
+def get_form_answers():
+    SERVICE_ACCOUNT_FILE = '../service_account.json'
+    SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
+
+    # Hitelesítés
+    credentials = service_account.Credentials.from_service_account_file(
+        SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+
+    # Google Sheets API kliens inicializálása
+    service = build('sheets', 'v4', credentials=credentials)
+
+    # A táblázat azonosítója (URL-ből másold ki)
+    SPREADSHEET_ID = '1kAkZRI6Qzp3O-bYjFDwKCYgCgU6bBn8m3m6KHliw6UA'
+    RANGE_NAME = 'Form_Responses1'  # Ez a Form válaszok alapértelmezett lapja
+
+    # Adatok lekérése
+    sheet = service.spreadsheets()
+    result = sheet.values().get(spreadsheetId=SPREADSHEET_ID, range=RANGE_NAME).execute()
+    rows = result.get('values', [])
+
+    # Válaszok megjelenítése
+    if rows:
+        for row in rows[1:]:
+            generate_plan(row)
+    else:
+        print("Nincsenek válaszok.")
+
+if __name__ == "__main__":
+    get_form_answers()
+    
